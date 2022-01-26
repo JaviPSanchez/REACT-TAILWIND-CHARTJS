@@ -14,10 +14,10 @@ function ProjectRecommendation() {
 
 const RecommendProject = styled.div`
   border-radius: 1rem;
-  height: 130%;
+  height: auto;
   padding: 1rem;
   background-color: white;
-  width: 27.5vw;
+  width: 100%;
   box-shadow: ${cardShadow};
   transition: 0.4s ease-in-out;
   &:hover {

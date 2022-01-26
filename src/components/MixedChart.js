@@ -1,17 +1,47 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import data from "./data/data.json";
 
-//Example of 3 different data sets
-const data1 = [12, 19, 8, 5, 3];
+const ponderationWork = [];
+const valueChoiceWork = [];
+
+for (let i = 0; i < 5; i++) {
+  const data1 = data.work[i].ponderation;
+  ponderationWork.push(data1);
+}
+console.log(ponderationWork); //[3, 6, 4, 3, 8]
+
+for (let i = 0; i < 5; i++) {
+  const data1 = data.work[i].valeurChoix;
+  valueChoiceWork.push(data1);
+}
+console.log(valueChoiceWork); //[0, 1, 1, 0, 1]
+
+const mpWork = ponderationWork.map(function (num, idx) {
+  return num * valueChoiceWork[idx];
+});
+console.log(mpWork); // [0, 6, 4, 0, 8]
+
+const totalWork = ponderationWork.reduce(
+  (partialSum, idx) => partialSum + idx,
+  0
+);
+console.log(totalWork); // 24
+
+const work = 18 / totalWork;
+console.log(work); //0.75
+
 const data2 = [13, 20, 9, 6, 4];
-const total = data1.map((num, idx) => num + data2[idx]);
+const total = ponderationWork.map((num, idx) => num + data2[idx]);
 
-const data = {
-  labels: ["work", "finance", "social", "leisure", "health"],
+// console.log(total);
+
+const data_exemple = {
+  labels: Object.keys(data), //['work', 'finance', 'social', 'leisure', 'health']
   datasets: [
     {
       label: "Dataset 1",
-      data: data1,
+      data: ponderationWork,
       type: "bar",
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
@@ -33,14 +63,14 @@ const data = {
       barThickness: 12,
       order: 1,
     },
-    {
-      label: "Dataset 2",
-      data: data2,
+    // {
+    //   label: "Dataset 2",
+    //   data: data2,
 
-      fill: false,
-      borderColor: "rgb(54, 162, 235)",
-      barThickness: 12,
-    },
+    //   fill: false,
+    //   borderColor: "rgb(54, 162, 235)",
+    //   barThickness: 12,
+    // },
     {
       label: "Total",
       data: total,
@@ -64,10 +94,11 @@ const options = {
   },
   title: {
     display: true,
-    text: "Bar + Line Chart",
+    text: "Features",
     fontSize: 25,
   },
   legend: {
+    display: false,
     labels: {
       fontSize: 25,
     },
@@ -79,7 +110,7 @@ const options = {
           display: true,
           labelString: "Options",
         },
-        stacked: "true",
+        // stacked: "true",
       },
     ],
     yAxes: [
@@ -101,8 +132,7 @@ function MixedChart() {
   //Return some jsx
   return (
     <div>
-      <h1>Bar Chart</h1>
-      <Bar data={data} options={options} />
+      <Bar data={data_exemple} options={options} />
     </div>
   );
 }
