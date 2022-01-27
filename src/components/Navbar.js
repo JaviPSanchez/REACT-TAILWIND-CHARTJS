@@ -6,13 +6,13 @@ function Navbar() {
     <NavbarContainer>
       <Text>
         Good morning,
-        <span> Kishan</span>
+        <span> Mark</span>
       </Text>
       <InputContainer>
         <Icon>
           <FiSearch />
         </Icon>
-        <Input type="text" placeholder="Search for projects" />
+        <Input type="text" placeholder="Search" />
       </InputContainer>
     </NavbarContainer>
   );

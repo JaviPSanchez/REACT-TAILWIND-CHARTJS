@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { RiHomeLine, RiFileCopyLine } from "react-icons/ri";
-import { FaWallet } from "react-icons/fa";
-import { AiOutlinePieChart } from "react-icons/ai";
-// import Badge from "./Badge";
-import AvatarImage from "../assets/avatarImage.jpeg";
+import {
+  IoAccessibilitySharp,
+  IoCloud,
+  IoDiamond,
+  IoEarth,
+} from "react-icons/io5";
+
+import AvatarImage from "../assets/image.jpg";
 import { darkThemeColor } from "../utils";
 
 function Sidebar() {
@@ -12,26 +15,25 @@ function Sidebar() {
     <Container>
       <ProfileContainer>
         <Avatar src={AvatarImage} />
-        <Name>Kishan Sheth</Name>
-        {/* <Badge content="Pro Level" /> */}
+        <Name>Mark O'Callagham</Name>
       </ProfileContainer>
       <LinksContainer>
         <Links>
           <Link>
-            <RiHomeLine />
-            <h3>Dashboard</h3>
+            <IoAccessibilitySharp />
+            <h3>Male</h3>
           </Link>
           <Link>
-            <RiFileCopyLine />
-            <h3>Projects</h3>
+            <IoCloud />
+            <h3>Single</h3>
           </Link>
           <Link>
-            <FaWallet />
-            <h3>Invoices</h3>
+            <IoDiamond />
+            <h3>180cm</h3>
           </Link>
           <Link>
-            <AiOutlinePieChart />
-            <h3>Reports</h3>
+            <IoEarth />
+            <h3>France</h3>
           </Link>
         </Links>
       </LinksContainer>
@@ -43,7 +45,7 @@ const Container = styled.div`
   width: 20%;
   height: 100% !important;
   border-radius: 2rem;
-  background-color: #091322;
+  background-color: #146e6c;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,7 +102,7 @@ const Link = styled.li`
     font-weight: 300;
   }
   svg {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     margin-top: 3%;
   }
 `;

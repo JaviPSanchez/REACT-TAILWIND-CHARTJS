@@ -2,46 +2,87 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 import data from "./data/data.json";
 
-const ponderationWork = [];
-const valueChoiceWork = [];
+class Feature {
+  constructor(data) {
+    this.data = data;
+    this.ponderation = this.extractPonderationValue();
+    this.valueChoice = this.extractValueChoice();
+    this.numerador = this.numerador();
+    this.denominador = this.denominador();
+  }
 
-for (let i = 0; i < 5; i++) {
-  const data1 = data.work[i].ponderation;
-  ponderationWork.push(data1);
+  extractPonderationValue() {
+    const ponderation = [];
+    for (let i = 0; i < Object.keys(data).length; i++) {
+      const data1 = this.data[i].ponderation;
+      ponderation.push(data1);
+    }
+    return ponderation;
+  }
+  extractValueChoice() {
+    const valueChoice = [];
+    for (let i = 0; i < Object.keys(data).length; i++) {
+      const data2 = this.data[i].valeurChoix;
+      valueChoice.push(data2);
+    }
+    return valueChoice;
+  }
+  numerador(arr1 = this.ponderation, arr2 = this.valueChoice) {
+    let sum = 0;
+    for (let i = 0; i < arr1.length; i++) {
+      const product = arr1[i] * arr2[i];
+      sum += product;
+    }
+    return sum;
+  }
+  denominador() {
+    const array = this.ponderation;
+    let sum = 0;
+    for (let i = 0; i < array.length; i++) {
+      sum += array[i];
+    }
+    return sum;
+  }
+  total(val1 = this.numerador, val2 = this.denominador) {
+    const total = val1 / val2;
+    return total;
+  }
 }
-console.log(ponderationWork); //[3, 6, 4, 3, 8]
 
-for (let i = 0; i < 5; i++) {
-  const data1 = data.work[i].valeurChoix;
-  valueChoiceWork.push(data1);
-}
-console.log(valueChoiceWork); //[0, 1, 1, 0, 1]
+const work = new Feature(data.work).total();
+const finance = new Feature(data.finance).total();
+const social = new Feature(data.social).total();
+const leisure = new Feature(data.leisure).total();
+const health = new Feature(data.health).total();
 
-const mpWork = ponderationWork.map(function (num, idx) {
-  return num * valueChoiceWork[idx];
+var ponderee = [];
+ponderee.push(work, finance, social, leisure, health);
+
+const final = ponderee.map(function (each_element) {
+  return Number(each_element.toFixed(2));
 });
-console.log(mpWork); // [0, 6, 4, 0, 8]
 
-const totalWork = ponderationWork.reduce(
-  (partialSum, idx) => partialSum + idx,
-  0
-);
-console.log(totalWork); // 24
+const data2 = [0.1, 0.1, 0.1, 0.1, 0.1];
+const total = final.map((num, idx) => num + data2[idx]);
 
-const work = 18 / totalWork;
-console.log(work); //0.75
+function score(array) {
+  let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    sum += array[i];
+  }
+  return sum;
+}
+const sumFinal = score(final);
 
-const data2 = [13, 20, 9, 6, 4];
-const total = ponderationWork.map((num, idx) => num + data2[idx]);
-
-// console.log(total);
+export const totalScore = sumFinal / final.length;
+console.log(totalScore); // 0.65
 
 const data_exemple = {
   labels: Object.keys(data), //['work', 'finance', 'social', 'leisure', 'health']
   datasets: [
     {
       label: "Dataset 1",
-      data: ponderationWork,
+      data: final,
       type: "bar",
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
@@ -51,16 +92,7 @@ const data_exemple = {
         "rgba(153, 102, 255, 0.2)",
         "rgba(255, 159, 64, 0.2)",
       ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 1,
-      barThickness: 12,
+      barThickness: 20,
       order: 1,
     },
     // {
@@ -107,21 +139,41 @@ const options = {
     xAxes: [
       {
         scaleLabel: {
-          display: true,
-          labelString: "Options",
+          display: false,
+          // labelString: "Options",
         },
         // stacked: "true",
+      },
+      {
+        gridLines: {
+          drawBorder: true,
+          display: false,
+          lineWidth: 0,
+        },
+        ticks: {
+          display: false,
+
+          // beginAtZero: true,
+        },
       },
     ],
     yAxes: [
       {
         scaleLabel: {
           display: true,
-          labelString: "Values",
+          labelString: "Value",
         },
-        stacked: "true",
+
+        gridLines: {
+          drawBorder: true,
+          display: false,
+          lineWidth: 0,
+        },
+        // stacked: "true",
         ticks: {
-          beginAtZero: true,
+          display: true,
+          fontSize: 15,
+          // beginAtZero: true,
         },
       },
     ],

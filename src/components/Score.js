@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { IoStatsChart } from "react-icons/io5";
+import { IoBarbell } from "react-icons/io5";
 import { themeColor, hoverEffect } from "../utils";
+import { totalScore } from "./MixedChart";
 
-function Earnings() {
+function Score() {
   return (
     <EarningsCard>
       <CardContent>
         <Chart>
-          <IoStatsChart />
+          <IoBarbell />
         </Chart>
-        <EarningsText>Earnings</EarningsText>
-        <Earning>$7,890</Earning>
-        <EarningsIncrease>+ 10% since last month</EarningsIncrease>
+        <ScoreText>Total Score</ScoreText>
+        <TotalScore>{totalScore.toFixed(2)}</TotalScore>
       </CardContent>
     </EarningsCard>
   );
@@ -20,7 +20,7 @@ function Earnings() {
 
 const EarningsCard = styled.div`
   height: 100%;
-  width: 14rem;
+  width: 30%;
   background-color: ${themeColor};
   padding: 1rem;
   border-radius: 1rem;
@@ -47,22 +47,21 @@ const Chart = styled.div`
   }
 `;
 
-const EarningsText = styled.h3`
+const ScoreText = styled.h3`
   text-align: center;
   font-weight: normal;
   padding: 0.4rem 0;
 `;
 
-const Earning = styled.h2`
-  text-align: center;
-`;
-
-const EarningsIncrease = styled.h5`
+const TotalScore = styled.h5`
   text-align: center;
   font-weight: normal;
+  font-size: 3rem;
+  width: 60%;
+  margin: 0 auto;
   background-color: rgba(0, 0, 0, 0.2);
   padding: 0.5rem;
   border-radius: 2rem;
 `;
 
-export default Earnings;
+export default Score;
